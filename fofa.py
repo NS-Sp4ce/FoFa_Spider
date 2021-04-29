@@ -18,6 +18,12 @@ FOFA_EMAIL = ""  # Account
 VERIFY_API = "https://fofa.so/api/v1/info/my?email={FOFA_EMAIL}&key={API_KEY}"
 SEARCH_API = "https://fofa.so/api/v1/search/all?email={FOFA_EMAIL}&key={API_KEY}&qbase64={B64_DATA}&size=100&page={page}"
 
+
+FULL_FILE = "result-{time}.txt".format(
+    time=time.strftime("%Y%m%d%H%M%S", time.localtime())
+)
+IP_FILE = "IP-{time}.txt".format(time=time.strftime("%Y%m%d%H%M%S", time.localtime()))
+
 HEADERS = {}
 HEADERS[
     "User-Agent"
@@ -141,16 +147,12 @@ $$ |       $$$$$$  |$$ |      $$ |  $$ |      \\$$$$$$  |$$$$$$$  |$$ |\\$$$$$$$
         self.infoMsg("Now processing page {page}.".format(page=page))
         for data in resultsData:
             with open(
-                "result-{time}.txt".format(
-                    time=time.strftime("%Y%m%d%H%M%S", time.localtime())
-                ),
+                FULL_FILE,
                 "a+",
             ) as f:
                 f.write(data[0] + "\n")
             with open(
-                "IP-{time}.txt".format(
-                    time=time.strftime("%Y%m%d%H%M%S", time.localtime())
-                ),
+                IP_FILE,
                 "a+",
             ) as f:
                 f.write(data[1] + "\n")
